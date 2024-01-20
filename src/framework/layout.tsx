@@ -5,6 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Button } from '@mui/material';
 import { TransactionsTable } from './table.tsx'
+import { getTransactionsFromServer } from './communication.ts';
 
 
 interface State {
@@ -44,7 +45,14 @@ export default class Layout extends React.Component<{}, State> {
                            sx = {{marginX:'5px', marginY:'30px'}}
                            format={'DD/MM/YYYY'}/>
           <Button variant="contained"
-                  onClick={ () => {this.setState({startDate:start, endDate:end, showTable: true})}}
+                  onClick={ () => {
+                    if (this.state.showTable) { 
+                      getTransactionsFromServer()
+                      .catch((err) => {
+                      alert("There was a problem connecting to the server \n" + err);
+                    })
+                    }
+                    this.setState({startDate:start, endDate:end, showTable: true})}}
                   sx = {{marginX: '10px', marginY:'40px'}}>
                   Show me the money!
           </Button>
