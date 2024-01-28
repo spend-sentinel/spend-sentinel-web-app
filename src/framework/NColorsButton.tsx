@@ -3,12 +3,13 @@ import React from "react";
 import { FunctionComponent, useState } from "react";
 
 interface NColorsButtonProps {
-    onClick: (Object) => void;
+    onClick: (Object) => Promise<boolean>;
     colors: string[];
     initialColorNumber: number;
+    transaction:Object;
 }
 
-export const NColorsButton: FunctionComponent<NColorsButtonProps> = ({onClick, colors, initialColorNumber}) => {
+export const NColorsButton: FunctionComponent<NColorsButtonProps> = ({onClick, colors, initialColorNumber, transaction}) => {
     const [colorNumber, setColorNumber] = useState(initialColorNumber);
     const numColors = colors.length;
     return (<Button 
@@ -19,9 +20,12 @@ export const NColorsButton: FunctionComponent<NColorsButtonProps> = ({onClick, c
             border: 'solid 3px black',
             backgroundColor: colors[colorNumber]
           }}
-        variant="contained" onClick={(transaction) => {
-            setColorNumber((colorNumber  + 1) % numColors)
-            onClick(transaction);
+        variant="contained" onClick={() => {
+            onClick(transaction).then(success => {
+              if (success) {
+                setColorNumber((colorNumber  + 1) % numColors)
+              }
+            })
           }}>
        </Button>);
 }
