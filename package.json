@@ -43,5 +43,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@osskit/prettier-config": "^0.0.1",
+    "prettier": "^3.2.4"
   }
 }
