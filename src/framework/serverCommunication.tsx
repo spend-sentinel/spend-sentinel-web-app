@@ -1,17 +1,12 @@
 import axios from 'axios';
-import { monthStatusesURLSuffix, serverUrl, transactionsInMonthSuffix } from './environment.ts';
+import { serverUrl, transactionsInMonthSuffix } from './environment.ts';
 import { useQuery } from 'react-query';
 import React, { FunctionComponent } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { NColorsButton } from './NColorsButton.tsx';
 import { dateFormatter } from './utils.ts';
 import { statusColors } from './utils.ts';
-import { MonthlyStatus } from './types.ts';
-
-// const GetAllTransactions = async () => {
-//   const response = await axios.get(serverUrl);
-//   return response.data;
-// };
+import { queryClient } from '../App.tsx';
 
 const GetMonthTransactions = async ({ queryKey }) => {
   const year = queryKey[1];
@@ -27,29 +22,20 @@ const GetMonthTransactions = async ({ queryKey }) => {
 
 const updateTransaction = async (transaction): Promise<boolean> => {
   transaction.Status = (transaction.Status + 1) % 3;
-  return (await axios.put(serverUrl, transaction)).status === 200;
+  const response = (await axios.put(serverUrl, transaction)).status === 200;
+  queryClient.invalidateQueries({ queryKey: ['monthlyStatuses'] })
+  return response;
 };
 
 interface DisplayTransactionsProps {
   year: number;
   month: number;
-  // showTable: boolean;
 }
-
-export const GetMonthlyStatuses = async (): Promise<MonthlyStatus[]> => {
-  const response = await axios.get(serverUrl + monthStatusesURLSuffix);
-  return response.data;
-};
 
 export const DisplayTransactions: FunctionComponent<DisplayTransactionsProps> = ({ year, month }) => {
   const { data: transactions, error, isLoading } = useQuery(['transactionsData', year, month], GetMonthTransactions);
   if (isLoading) return <div>Fetching Data...</div>;
   if (error) return <div>An error occurred</div>;
-
-  // const filteredData = transactions.filter((transaction) => {
-  //   const transactionDate = new Date(transaction.TransactionDate);
-  //   return transactionDate.getMonth() + 1 === month && transactionDate.getFullYear() === year;
-  // });
 
   return (
     <div>
@@ -76,7 +62,7 @@ export const DisplayTransactions: FunctionComponent<DisplayTransactionsProps> = 
           </TableHead>
           <TableBody>
             {transactions.map((row: any, index: number) => (
-              <TableRow key={index} sx={{ border: 3 }}>
+              <TableRow key={row.TransNum} sx={{ border: 3 }}>
                 <TableCell sx={{ border: 1 }} align='center'>
                   <NColorsButton
                     onClick={updateTransaction}

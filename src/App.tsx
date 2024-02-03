@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export const App: FunctionComponent = () => (
   <QueryClientProvider client={queryClient}>

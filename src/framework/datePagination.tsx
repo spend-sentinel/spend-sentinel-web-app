@@ -1,17 +1,24 @@
 import { Button, List } from '@mui/material';
 import usePagination from '@mui/material/usePagination/usePagination';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { getDates } from './utils.ts';
-import { MonthlyStatus } from './types.ts';
-import { DateAndColor } from './types.ts';
+import { DateAndColor, MonthlyStatus } from './types.ts';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import { monthStatusesURLSuffix, serverUrl } from './environment.ts';
 
 interface DatePaginationProps {
-  monthlyStatuses: MonthlyStatus[];
   onclick: (date: string) => void;
 }
 
-export const DatePagination: FunctionComponent<DatePaginationProps> = ({ onclick, monthlyStatuses }) => {
-  const [dates] = useState(getDates(monthlyStatuses));
+const GetMonthlyStatuses = async (): Promise<MonthlyStatus[]> => {
+  const response = await axios.get(serverUrl + monthStatusesURLSuffix);
+  return response.data;
+};
+
+export const DatePagination: FunctionComponent<DatePaginationProps> = ({ onclick }) => {
+  const { data: monthlyStatuses, error, isLoading } = useQuery('monthlyStatuses', GetMonthlyStatuses);
+  const dates = useMemo(() => getDates(monthlyStatuses), [monthlyStatuses]);
   const { items } = usePagination(
     dates
       ? {
@@ -24,12 +31,14 @@ export const DatePagination: FunctionComponent<DatePaginationProps> = ({ onclick
       : {},
   );
 
-  if (undefined === dates) {
-    return <div>Please try again later</div>;
+  if (error) {
+    return <div>An error occured</div>;
   }
-  if (undefined === monthlyStatuses) {
-    return <div>Something went wrong</div>;
+
+  if (isLoading || undefined === dates) {
+    return <div>Loading Transactions...</div>;
   }
+
   return (
     <div>
       <nav>
