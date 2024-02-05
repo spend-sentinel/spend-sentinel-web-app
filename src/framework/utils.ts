@@ -18,14 +18,16 @@ export const getDates = (monthlyStatuses: MonthlyStatus[] | undefined): string[]
       return undefined;
     }
   
-    let [month, year, endMonth, endYear] = getDateRanges(monthlyStatuses);
+    const [month, year, endMonth, endYear] = getDateRanges(monthlyStatuses);
+    let monthRunner = month;
+    let yearRunner = year;
     while (dateBeforeEnd(month, year, endMonth, endYear)) {
-      pages.push([(month < 10 ? '0' + month.toString() : month) + '/' + year, getMonthColor(monthlyStatuses, month, year)]);
+      pages.push([(monthRunner < 10 ? '0' + monthRunner.toString() : monthRunner) + '/' + yearRunner, getMonthColor(monthlyStatuses, monthRunner, yearRunner)]);
       if (month === 12) {
-        year++;
-        month = 1;
+        yearRunner++;
+        monthRunner = 1;
       } else {
-        month += 1;
+        monthRunner += 1;
       }
     }
     return pages;

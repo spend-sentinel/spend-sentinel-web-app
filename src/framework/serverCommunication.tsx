@@ -7,6 +7,7 @@ import { NColorsButton } from './NColorsButton.tsx';
 import { dateFormatter } from './utils.ts';
 import { statusColors } from './utils.ts';
 import { queryClient } from '../App.tsx';
+import { MoneyTransaction } from './types.ts';
 
 const GetMonthTransactions = async ({ queryKey }) => {
   const year = queryKey[1];
@@ -61,7 +62,7 @@ export const DisplayTransactions: FunctionComponent<DisplayTransactionsProps> = 
             </TableRow>
           </TableHead>
           <TableBody>
-            {transactions.map((row: any, index: number) => (
+            {transactions.map((row: MoneyTransaction) => (
               <TableRow key={row.TransNum} sx={{ border: 3 }}>
                 <TableCell sx={{ border: 1 }} align='center'>
                   <NColorsButton

@@ -3,10 +3,10 @@ import React from 'react';
 import { FunctionComponent, useState } from 'react';
 
 interface NColorsButtonProps {
-  onClick: (Object) => Promise<boolean>;
+  onClick: (data:object) => Promise<boolean>;
   colors: string[];
   initialColorNumber: number;
-  data: Object;
+  data: object;
 }
 
 export const NColorsButton: FunctionComponent<NColorsButtonProps> = ({ onClick, colors, initialColorNumber, data }) => {

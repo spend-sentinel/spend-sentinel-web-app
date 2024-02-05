@@ -7,11 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import { FunctionComponent } from 'react';
 
-interface SpendSentinelAppProps {
 
-}
-
-export const SpendSentinelAppBar: FunctionComponent<SpendSentinelAppProps> = () => {
+export const SpendSentinelAppBar: FunctionComponent = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
