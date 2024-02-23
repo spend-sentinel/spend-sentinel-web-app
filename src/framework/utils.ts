@@ -21,9 +21,12 @@ export const getDates = (monthlyStatuses: MonthlyStatus[] | undefined): string[]
     const [month, year, endMonth, endYear] = getDateRanges(monthlyStatuses);
     let monthRunner = month;
     let yearRunner = year;
-    while (dateBeforeEnd(month, year, endMonth, endYear)) {
+
+    while (dateBeforeEnd(monthRunner, yearRunner, endMonth, endYear)) {
+      console.log("endMonth: " + endMonth);
+      console.log("endYear: " + endYear);
       pages.push([(monthRunner < 10 ? '0' + monthRunner.toString() : monthRunner) + '/' + yearRunner, getMonthColor(monthlyStatuses, monthRunner, yearRunner)]);
-      if (month === 12) {
+      if (monthRunner === 12) {
         yearRunner++;
         monthRunner = 1;
       } else {

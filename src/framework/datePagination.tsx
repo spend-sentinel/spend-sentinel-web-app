@@ -19,6 +19,7 @@ const GetMonthlyStatuses = async (): Promise<MonthlyStatus[]> => {
 export const DatePagination: FunctionComponent<DatePaginationProps> = ({ onclick }) => {
   const { data: monthlyStatuses, error, isLoading } = useQuery('monthlyStatuses', GetMonthlyStatuses);
   const dates = useMemo(() => getDates(monthlyStatuses), [monthlyStatuses]);
+
   const { items } = usePagination(
     dates
       ? {
@@ -35,8 +36,12 @@ export const DatePagination: FunctionComponent<DatePaginationProps> = ({ onclick
     return <div>An error occured</div>;
   }
 
-  if (isLoading || undefined === dates) {
-    return <div>Loading Transactions...</div>;
+  if (isLoading) {
+    return <div>Loading AAA...</div>;
+  }
+
+  if (undefined === dates) {
+    return <div>An error occured...</div>;
   }
 
   return (
@@ -80,6 +85,7 @@ export const DatePagination: FunctionComponent<DatePaginationProps> = ({ onclick
       </nav>
     </div>
   );
+  return <div>WHAT</div>;
 };
 
 export default DatePagination;

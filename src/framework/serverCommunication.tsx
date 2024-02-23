@@ -7,7 +7,7 @@ import { NColorsButton } from './NColorsButton.tsx';
 import { dateFormatter } from './utils.ts';
 import { statusColors } from './utils.ts';
 import { queryClient } from '../App.tsx';
-import { MoneyTransaction } from './types.ts';
+import {MoneyTransaction} from '../../../transaction-api/src/types'
 
 const GetMonthTransactions = async ({ queryKey }) => {
   const year = queryKey[1];
