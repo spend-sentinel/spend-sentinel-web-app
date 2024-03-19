@@ -7,7 +7,7 @@ import { NColorsButton } from './NColorsButton.tsx';
 import { dateFormatter } from './utils.ts';
 import { statusColors } from './utils.ts';
 import { queryClient } from '../App.tsx';
-import {MoneyTransaction} from '../../../transaction-api/src/types'
+import { MoneyTransaction } from '../../../transaction-api/src/types';
 
 const GetMonthTransactions = async ({ queryKey }) => {
   const year = queryKey[1];
@@ -21,11 +21,14 @@ const GetMonthTransactions = async ({ queryKey }) => {
   return response.data;
 };
 
-const updateTransaction = async (transaction): Promise<boolean> => {
+const updateTransaction = async (transaction: MoneyTransaction): Promise<boolean> => {
   transaction.Status = (transaction.Status + 1) % 3;
-  const response = (await axios.put(serverUrl, transaction)).status === 200;
-  queryClient.invalidateQueries({ queryKey: ['monthlyStatuses'] })
-  return response;
+  const response = await axios.post(serverUrl, transaction);
+  if (response.status === 200) {
+    queryClient.invalidateQueries({ queryKey: ['monthColor'] });
+    return true;
+  }
+  return false;
 };
 
 interface DisplayTransactionsProps {
@@ -38,8 +41,12 @@ export const DisplayTransactions: FunctionComponent<DisplayTransactionsProps> = 
   if (isLoading) return <div>Fetching Data...</div>;
   if (error) return <div>An error occurred</div>;
 
+  transactions.sort((a: MoneyTransaction, b: MoneyTransaction) => {
+    return new Date(b.TransactionDate).getTime() - new Date(a.TransactionDate).getTime();
+  });
+
   return (
-    <div>
+    <div style={{ height: '100vh', overflow: 'scroll' }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>

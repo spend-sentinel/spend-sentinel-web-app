@@ -23,8 +23,6 @@ export const getDates = (monthlyStatuses: MonthlyStatus[] | undefined): string[]
     let yearRunner = year;
 
     while (dateBeforeEnd(monthRunner, yearRunner, endMonth, endYear)) {
-      console.log("endMonth: " + endMonth);
-      console.log("endYear: " + endYear);
       pages.push([(monthRunner < 10 ? '0' + monthRunner.toString() : monthRunner) + '/' + yearRunner, getMonthColor(monthlyStatuses, monthRunner, yearRunner)]);
       if (monthRunner === 12) {
         yearRunner++;
@@ -63,3 +61,7 @@ export const dateFormatter = (date:Date):string => {
 
   return day + '/' + month + '/' + year;
 }
+
+export const formatMonthYear = (month: number, year: number): string => {
+  return month < 10 ? '0' + month.toString() + '/' + year.toString() : month.toString() + '/' + year.toString();
+};

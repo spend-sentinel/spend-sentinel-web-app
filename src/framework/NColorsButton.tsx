@@ -1,12 +1,13 @@
 import Button from '@mui/material/Button';
 import React from 'react';
 import { FunctionComponent, useState } from 'react';
+import { MoneyTransaction } from '../../../transaction-api/src/types';
 
 interface NColorsButtonProps {
-  onClick: (data:object) => Promise<boolean>;
+  onClick: (data: MoneyTransaction) => Promise<boolean>;
   colors: string[];
   initialColorNumber: number;
-  data: object;
+  data: MoneyTransaction;
 }
 
 export const NColorsButton: FunctionComponent<NColorsButtonProps> = ({ onClick, colors, initialColorNumber, data }) => {
@@ -25,6 +26,8 @@ export const NColorsButton: FunctionComponent<NColorsButtonProps> = ({ onClick, 
         onClick(data).then((success) => {
           if (success) {
             setColorNumber((colorNumber + 1) % numColors);
+          } else {
+            alert('Something went wrong upon updating transaction');
           }
         });
       }}
