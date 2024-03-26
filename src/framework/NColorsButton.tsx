@@ -3,14 +3,14 @@ import React from 'react';
 import { FunctionComponent, useState } from 'react';
 import { MoneyTransaction } from '../../../transaction-api/src/types';
 
-interface NColorsButtonProps {
+interface Props {
   onClick: (data: MoneyTransaction) => Promise<boolean>;
   colors: string[];
   initialColorNumber: number;
   data: MoneyTransaction;
 }
 
-export const NColorsButton: FunctionComponent<NColorsButtonProps> = ({ onClick, colors, initialColorNumber, data }) => {
+export const NColorsButton: FunctionComponent<Props> = ({ onClick, colors, initialColorNumber, data }) => {
   const [colorNumber, setColorNumber] = useState(initialColorNumber);
   const numColors = colors.length;
   return (

@@ -1,13 +1,13 @@
 import { Button, List } from '@mui/material';
 import usePagination from '@mui/material/usePagination/usePagination';
 import React, { FunctionComponent, useMemo } from 'react';
-import { getDates } from './utils.ts';
-import { DateAndColor, MonthlyStatus } from './types.ts';
+import { getDates } from '../framework/utils.ts';
+import { DateAndColor, MonthlyStatus } from '../framework/types.ts';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { monthStatusesURLSuffix, serverUrl } from './environment.ts';
+import { monthStatusesURLSuffix, serverUrl } from '../framework/environment.ts';
 
-interface DatePaginationProps {
+interface Props {
   onchange: (date: string) => void;
 }
 
@@ -16,7 +16,7 @@ const GetMonthlyStatuses = async (): Promise<MonthlyStatus[]> => {
   return response.data;
 };
 
-export const DatePagination: FunctionComponent<DatePaginationProps> = ({ onchange }) => {
+export const DatePagination: FunctionComponent<Props> = ({ onchange }) => {
   const { data: monthlyStatuses, error, isLoading } = useQuery('monthlyStatuses', GetMonthlyStatuses);
   const dates = useMemo(() => getDates(monthlyStatuses), [monthlyStatuses]);
 

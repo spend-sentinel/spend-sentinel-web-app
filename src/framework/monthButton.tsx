@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { formatMonthYear, statusColors } from './utils.ts';
 import { serverUrl, statusOfMonthSuffix } from './environment.ts';
 
-interface PaginationButtonProps {
+interface Props {
   onclick: () => void;
   month: number;
   year: number;
@@ -34,7 +34,7 @@ const GetMonthColor = async (month: number, year: number): Promise<string> => {
   return statusColors[+response.data];
 };
 
-export const PaginationButton: FunctionComponent<PaginationButtonProps> = ({ onclick, month, year, pageNumber, currPage, text }) => {
+export const PaginationButton: FunctionComponent<Props> = ({ onclick, month, year, pageNumber, currPage, text }) => {
   const { data: monthColor, error, isLoading } = useQuery(['monthColor', month, year], () => GetMonthColor(month, year));
 
   return (

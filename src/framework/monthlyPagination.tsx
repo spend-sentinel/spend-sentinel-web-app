@@ -50,11 +50,11 @@ const GetNumMonths = async (setStartAndEndDates: (endMonth: number, endYear: num
   return numMonths <= 0 ? 0 : numMonths;
 };
 
-interface MyPaginationProps {
+interface Props {
   onPageChange: (date: string) => void;
 }
 
-export const MyPagination: FunctionComponent<MyPaginationProps> = ({ onPageChange }) => {
+export const MonthlyPagination: FunctionComponent<Props> = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(0);
   const [currPage, setCurrPage] = useState(0);
   const [startDate, setStartDate] = useState('');
@@ -75,7 +75,7 @@ export const MyPagination: FunctionComponent<MyPaginationProps> = ({ onPageChang
   }, []);
 
   return (
-    <List style={{ display: 'flex', flexDirection: 'row-reverse', width: '100%' }}>
+    <List style={{ display: 'flex', flexDirection: 'row-reverse' }}>
       <PaginationButton
         currPage={currPage}
         month={0}
@@ -83,7 +83,7 @@ export const MyPagination: FunctionComponent<MyPaginationProps> = ({ onPageChang
         pageNumber={undefined}
         text='>>'
         onclick={() => {
-          setCurrPage(numPages);
+          setCurrPage(Math.min(currPage + 1, numPages));
           onPageChange(startDate);
         }}
       />
@@ -95,8 +95,8 @@ export const MyPagination: FunctionComponent<MyPaginationProps> = ({ onPageChang
         pageNumber={undefined}
         text='<<'
         onclick={() => {
+          setCurrPage(Math.max(currPage - 1, 1));
           onPageChange(endDate);
-          setCurrPage(1);
         }}
       />
     </List>
