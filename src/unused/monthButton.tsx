@@ -2,19 +2,22 @@ import { Button } from '@mui/material';
 import axios from 'axios';
 import React, { FunctionComponent } from 'react';
 import { useQuery } from 'react-query';
-import { statusColors } from './utils.ts';
+import { formatMonthYear, statusColors } from './utils.ts';
 import { serverUrl, statusOfMonthSuffix } from './environment.ts';
-import styled from '@emotion/styled';
 
 interface Props {
-  onclick: (date: string) => void;
+  onclick: () => void;
   month: number;
   year: number;
-  currDate: string;
-  date: string;
+  pageNumber?: number;
+  currPage: number;
+  text?: string;
 }
 
 const GetMonthColor = async (month: number, year: number): Promise<string> => {
+  if (!month || !year) {
+    return 'gray';
+  }
   const params = {
     month: month,
     year: year,
@@ -31,28 +34,22 @@ const GetMonthColor = async (month: number, year: number): Promise<string> => {
   return statusColors[+response.data];
 };
 
-export const MonthButton: FunctionComponent<Props> = ({ onclick, month, year, currDate, date }) => {
+export const PaginationButton: FunctionComponent<Props> = ({ onclick, month, year, pageNumber, currPage, text }) => {
   const { data: monthColor, error, isLoading } = useQuery(['monthColor', month, year], () => GetMonthColor(month, year));
-  const Button = styled.button`
-    border-radius: 3px;
-    width: 100px;
-    border: solid 2px black;
-    margin-left: 3px;
-    margin-right: 3px;
-    color: black;
-    transition: transform 0.3s; // Add transition for smooth effect
-    &:hover {
-      transform: scale(1.1); // Increase size on hover
-    }
-  `;
-  const buttonStyle = {
-    backgroundColor: error || isLoading ? 'white' : monthColor,
-    opacity: currDate === date ? 1 : 0.5,
-  };
 
   return (
-    <Button style={buttonStyle} onClick={() => onclick(date)}>
-      {date}
+    <Button
+      style={{
+        borderRadius: '3px',
+        width: '100px',
+        border: 'solid 2px black',
+        backgroundColor: monthColor,
+        color: 'black',
+        opacity: 0 === month ? 1 : currPage === pageNumber ? 1 : 0.5,
+      }}
+      onClick={() => onclick()}
+    >
+      {undefined !== pageNumber ? formatMonthYear(month, year) : text}
     </Button>
   );
 };

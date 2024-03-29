@@ -13,14 +13,15 @@ interface Props {
 export const NColorsButton: FunctionComponent<Props> = ({ onClick, colors, initialColorNumber, data }) => {
   const [colorNumber, setColorNumber] = useState(initialColorNumber);
   const numColors = colors.length;
+  const buttonStyle = {
+    borderRadius: '2px',
+    width: '60px',
+    border: 'solid 3px black',
+    backgroundColor: colors[colorNumber],
+  };
   return (
     <Button
-      style={{
-        borderRadius: '2px',
-        width: '60px',
-        border: 'solid 3px black',
-        backgroundColor: colors[colorNumber],
-      }}
+      style={buttonStyle}
       variant='contained'
       onClick={() => {
         onClick(data).then((success) => {

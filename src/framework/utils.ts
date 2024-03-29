@@ -1,4 +1,4 @@
-import { MonthlyStatus } from "./types";
+import { MonthlyStatus } from "../unused/types";
 
 export const statusColors = ['red', 'yellow', 'green'];
 

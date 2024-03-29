@@ -7,7 +7,8 @@ import { NColorsButton } from './NColorsButton.tsx';
 import { dateFormatter } from './utils.ts';
 import { statusColors } from './utils.ts';
 import { queryClient } from '../App.tsx';
-import { MoneyTransaction } from '../../../transaction-api/src/types';
+import { MoneyTransaction } from '../../../transaction-api/src/types.ts';
+import styled from '@emotion/styled';
 
 const getMonthTransactions = async ({ queryKey }): Promise<MoneyTransaction[]> => {
   const year = queryKey[1];
@@ -19,9 +20,6 @@ const getMonthTransactions = async ({ queryKey }): Promise<MoneyTransaction[]> =
     },
   });
 
-  // response.data.sort((a: MoneyTransaction, b: MoneyTransaction) => {
-  //   return new Date(b.TransactionDate).getTime() - new Date(a.TransactionDate).getTime();
-  // });
   return response.data as MoneyTransaction[];
 };
 
@@ -43,7 +41,7 @@ interface Props {
 const tableBorders = { border: 3 };
 const cellBorder = { border: 1 };
 
-export const DisplayTransactions: FunctionComponent<Props> = ({ year, month }) => {
+export const TransactionsTable: FunctionComponent<Props> = ({ year, month }) => {
   const { data: transactions, error, isLoading } = useQuery(['transactionsData', year, month], getMonthTransactions);
   useMemo(() => {
     if (undefined === transactions) return;
@@ -53,11 +51,15 @@ export const DisplayTransactions: FunctionComponent<Props> = ({ year, month }) =
   }, [transactions]);
   if (isLoading || undefined === transactions) return <div>Fetching Data...</div>;
   if (error) return <div>An error occurred!</div>;
+  const Container = styled.div`
+    width: 100vh;
+    margin: 0 auto;
+  `;
 
   return (
-    <div style={{ height: '800px', overflow: 'scroll' }}>
+    <Container style={{ overflow: 'scroll' }}>
       <TableContainer component={Paper}>
-        <Table sx={{ width: '675px' }} aria-label='simple table'>
+        <Table aria-label='simple table'>
           <TableHead>
             <TableRow sx={tableBorders}>
               <TableCell sx={tableBorders} align='center'>
@@ -111,6 +113,6 @@ export const DisplayTransactions: FunctionComponent<Props> = ({ year, month }) =
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Container>
   );
 };
