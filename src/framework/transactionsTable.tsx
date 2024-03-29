@@ -51,15 +51,15 @@ export const TransactionsTable: FunctionComponent<Props> = ({ year, month }) => 
   }, [transactions]);
   if (isLoading || undefined === transactions) return <div>Fetching Data...</div>;
   if (error) return <div>An error occurred!</div>;
-  const Container = styled.div`
-    width: 100vh;
-    margin: 0 auto;
+  const DivContainer = styled.div`
+    height: 80vh;
+    overflow-y: auto;
   `;
 
   return (
-    <Container style={{ overflow: 'scroll' }}>
+    <DivContainer>
       <TableContainer component={Paper}>
-        <Table aria-label='simple table'>
+        <Table sx={{ width: '675px' }} aria-label='simple table'>
           <TableHead>
             <TableRow sx={tableBorders}>
               <TableCell sx={tableBorders} align='center'>
@@ -113,6 +113,6 @@ export const TransactionsTable: FunctionComponent<Props> = ({ year, month }) => 
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </DivContainer>
   );
 };
