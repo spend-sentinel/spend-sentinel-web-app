@@ -1,4 +1,4 @@
-import { Button, List } from '@mui/material';
+import { List } from '@mui/material';
 import React, { useState } from 'react';
 import { FunctionComponent } from 'react';
 import { MonthButton } from './monthButton.tsx';
@@ -42,8 +42,12 @@ const getFiveMonthButtons = (onPageChange: (date: string) => void, currDate: str
   // const [numMonthsToShow, setNumMonthsToShow] = useState(5);
   const numMonthsToShow = 5;
   const months = getMonthsArray(currDate, numMonthsToShow);
+  const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+  `;
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <Container>
       {months.map((date: string) => {
         const [month, year] = date.split('/').map(Number);
         return (
@@ -60,7 +64,7 @@ const getFiveMonthButtons = (onPageChange: (date: string) => void, currDate: str
           ></MonthButton>
         );
       })}
-    </div>
+    </Container>
   );
 };
 

@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState } from 'react';
 import { TransactionsTable } from './transactionsTable.tsx';
 import { SpendSentinelAppBar } from './appBar.tsx';
 import { InfiniteMonthScroller } from './infiniteMonthScroller.tsx';
-import styled from '@emotion/styled';
 
 export const Layout: FunctionComponent = () => {
   const [monthToShow, setMonthToShow] = useState(new Date().getMonth() + 1);
