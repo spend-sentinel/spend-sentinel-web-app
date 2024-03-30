@@ -1,9 +1,8 @@
-import { Button } from '@mui/material';
 import axios from 'axios';
 import React, { FunctionComponent } from 'react';
 import { useQuery } from 'react-query';
 import { statusColors } from './utils.ts';
-import { serverUrl, statusOfMonthSuffix } from './environment.ts';
+import { serverUrl, statusOfMonthSuffix } from './routeNames.ts';
 import styled from '@emotion/styled';
 
 interface Props {

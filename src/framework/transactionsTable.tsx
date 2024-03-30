@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { serverUrl, transactionsInMonthSuffix } from './environment.ts';
+import { serverUrl, transactionsInMonthSuffix } from './routeNames.ts';
 import { useQuery } from 'react-query';
 import React, { FunctionComponent, useMemo } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';

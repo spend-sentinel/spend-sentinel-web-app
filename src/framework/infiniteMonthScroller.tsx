@@ -17,22 +17,27 @@ const getCurrentDateAsString = () => {
   return formatMonthYear(new Date().getMonth() + 1, new Date().getFullYear());
 };
 
+const pushDates = (dates: string[], changeInMonth: number, newDate: Date) => {
+  newDate.setDate(1);
+  newDate.setMonth(newDate.getMonth() + changeInMonth);
+  dates.push(formatMonthYear(newDate.getMonth() + 1, newDate.getFullYear()));
+};
+
 const getMonthsArray = (currMonth: string, numMonthsToShow): string[] => {
   const dates: string[] = [];
   const [month, year] = currMonth.split('/').map(Number);
   const today = new Date();
   const diffInMonths = (today.getFullYear() - year) * 12 + (today.getMonth() + 1 - month);
+
   if (diffInMonths < Math.ceil(numMonthsToShow / 2)) {
     for (let i = 0; i < numMonthsToShow; i++) {
       const newDate = new Date();
-      newDate.setMonth(newDate.getMonth() - i);
-      dates.push(formatMonthYear(newDate.getMonth() + 1, newDate.getFullYear()));
+      pushDates(dates, -i, newDate);
     }
   } else {
     for (let i = Math.floor(numMonthsToShow / 2); i > -Math.ceil(numMonthsToShow / 2); i--) {
       const newDate = new Date(year, month);
-      newDate.setMonth(newDate.getMonth() + i - 1);
-      dates.push(formatMonthYear(newDate.getMonth() + 1, newDate.getFullYear()));
+      pushDates(dates, i - 1, newDate);
     }
   }
   return dates;
