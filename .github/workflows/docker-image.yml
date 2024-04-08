@@ -25,4 +25,4 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
           push: true
-          tags: bennoama/transaction_api:latest
+          tags: bennoama/spend-sentinel-web-app:latest
