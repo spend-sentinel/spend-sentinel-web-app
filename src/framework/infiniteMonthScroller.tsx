@@ -1,4 +1,4 @@
-import { List } from '@mui/material';
+import { List, Tooltip } from '@mui/material';
 import React, { useState } from 'react';
 import { FunctionComponent } from 'react';
 import { MonthButton } from './monthButton.tsx';
@@ -116,11 +116,15 @@ export const InfiniteMonthScroller: FunctionComponent<Props> = ({ onPageChange }
 
   return (
     <List sx={listStyle}>
-      <Button onClick={() => onArrowClick(1)} disabled={isCurrDateLatest(currDate)}>
+      <Tooltip title={getNewDate(currDate, 1)} arrow>
+        <Button onClick={() => onArrowClick(1)} disabled={isCurrDateLatest(currDate)}>
         {'<<'}
       </Button>
+      </Tooltip>
       {getFiveMonthButtons(onPageChange, currDate, setCurrDate)}
-      <Button onClick={() => onArrowClick(-1)}>{'>>'}</Button>
+      <Tooltip title={getNewDate(currDate, -1)} arrow>
+        <Button onClick={() => onArrowClick(-1)}>{'>>'}</Button>
+      </Tooltip>
     </List>
   );
 };
