@@ -7,7 +7,7 @@ import { NColorsButton } from './NColorsButton.tsx';
 import { dateFormatter } from './utils.ts';
 import { statusColors } from './utils.ts';
 import { queryClient } from '../App.tsx';
-import { MoneyTransaction } from '../../../transaction-api/src/types.ts';
+import { MoneyTransaction } from '../../../transaction-api/src/shared/types.ts';
 import styled from '@emotion/styled';
 
 const getMonthTransactions = async ({ queryKey }): Promise<MoneyTransaction[]> => {

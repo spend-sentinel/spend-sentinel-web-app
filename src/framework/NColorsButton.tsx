@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import React from 'react';
 import { FunctionComponent, useState } from 'react';
-import { MoneyTransaction } from '../../../transaction-api/src/types';
+import { MoneyTransaction } from '../../../transaction-api/src/shared/types';
 
 interface Props {
   onClick: (data: MoneyTransaction) => Promise<boolean>;
