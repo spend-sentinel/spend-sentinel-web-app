@@ -5,9 +5,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { FunctionComponent, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import { styled } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
 
 // Define styles for the dialog's Paper component using styled
 const StyledDialog = styled(Dialog)(() => ({
@@ -58,9 +60,19 @@ export const SpendSentinelAppBar: FunctionComponent = () => {
         onClose={() => setInfoBoxVisible(false)}
         open={infoBoxVisible}
       >
-        <h1 style={headerStyling}>About Spend-Sentinel</h1>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <h1 style={headerStyling}>About Spend-Sentinel</h1>
+          <Tooltip title="Back to app" arrow>
+            <IconButton
+              onClick={() => setInfoBoxVisible(false)}
+              color="inherit"
+            >
+              <ExitToAppIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
         <ul style={textStyling}>
-          {getInfoBulletPoints().map((bulletPoint:string) => {
+          {getInfoBulletPoints().map((bulletPoint: string) => {
             return (<li key={bulletPoint}>{bulletPoint}</li>);
           })}
         </ul>
@@ -68,7 +80,6 @@ export const SpendSentinelAppBar: FunctionComponent = () => {
     </Box>
   );
 };
-
 
 const getInfoBulletPoints = (): string[] => {
   const bulletPointsArray = [
