@@ -48,12 +48,14 @@ export const SpendSentinelAppBar: FunctionComponent = () => {
         <Toolbar>
           Spend Sentinel App
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
+          <Tooltip title="About" arrow>
           <IconButton
             onClick={() => setInfoBoxVisible(true)}
             color="inherit"
-          >
+            >
             <InfoIcon />
           </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <StyledDialog
