@@ -5,9 +5,9 @@ WORKDIR /service
 COPY package.json ./
 
 RUN yarn add -g ts-node nodemon
-RUN yarn install
 RUN yarn add typescript
 RUN yarn add serve
+RUN yarn install
 
 COPY src ./src
 COPY public ./public
