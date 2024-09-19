@@ -4,11 +4,13 @@ WORKDIR /service
 
 COPY package.json ./
 
-RUN npm install -g ts-node nodemon
-RUN npm install
-RUN npm install typescript
+RUN yarn add -g ts-node nodemon
+RUN yarn install
+RUN yarn add typescript
+RUN yarn add serve
 
 COPY src ./src
 COPY public ./public
+RUN yarn build
 
-CMD ["npm", "start"]
+CMD ["yarn", "serve", "-s", "build"]
