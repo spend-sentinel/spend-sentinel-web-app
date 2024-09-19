@@ -1,6 +1,6 @@
 {
-  "name": "spend-sentinel-app",
-  "version": "0.1.0",
+  "name": "spend-sentinel-web-app",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -13,26 +13,19 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.3",
-    "dayjs": "^1.11.10",
-    "docker": "^1.0.0",
-    "eslint": "^8.57.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-scripts": "5.0.1",
+    "typescript": "^5.5.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "format": "prettier . --write"
   },
   "browserslist": {
     "production": [
@@ -47,7 +40,14 @@
     ]
   },
   "devDependencies": {
+    "@eslint/js": "^9.10.0",
     "@osskit/prettier-config": "^0.0.1",
-    "prettier": "^3.2.4"
+    "@typescript-eslint/parser": "^8.6.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-react": "^7.36.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "typescript-eslint": "^8.6.0"
   }
 }

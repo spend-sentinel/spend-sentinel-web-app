@@ -118,8 +118,8 @@ export const InfiniteMonthScroller: FunctionComponent<Props> = ({ onPageChange }
     <List sx={listStyle}>
       <Tooltip title={getNewDate(currDate, 1)} arrow>
         <Button onClick={() => onArrowClick(1)} disabled={isCurrDateLatest(currDate)}>
-        {'<<'}
-      </Button>
+          {'<<'}
+        </Button>
       </Tooltip>
       {getFiveMonthButtons(onPageChange, currDate, setCurrDate)}
       <Tooltip title={getNewDate(currDate, -1)} arrow>
